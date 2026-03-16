@@ -1,14 +1,26 @@
+"use client";
+import { useState } from "react";
+
 export default function Home() {
+  const [cartCount, setCartCount] = useState(0);
+  const [added, setAdded] = useState<number | null>(null);
+
   const products = [
-    { id: 1, name: "Wireless Headphones", price: "$99.99", original: "$149.99", category: "Electronics", badge: "Best Seller" },
-    { id: 2, name: "Running Shoes", price: "$59.99", original: "$89.99", category: "Footwear", badge: "Sale" },
-    { id: 3, name: "Coffee Maker", price: "$45.99", original: "$65.99", category: "Kitchen", badge: "New" },
-    { id: 4, name: "Yoga Mat", price: "$29.99", original: "$44.99", category: "Fitness", badge: "Popular" },
-    { id: 5, name: "Laptop Stand", price: "$39.99", original: "$59.99", category: "Office", badge: "Sale" },
-    { id: 6, name: "Water Bottle", price: "$19.99", original: "$29.99", category: "Lifestyle", badge: "New" },
+    { id: 1, name: "Wireless Headphones", price: 99.99, original: 149.99, category: "Electronics", badge: "Best Seller", color: "bg-purple-100", text: "text-purple-600" },
+    { id: 2, name: "Running Shoes", price: 59.99, original: 89.99, category: "Footwear", badge: "Sale", color: "bg-green-100", text: "text-green-600" },
+    { id: 3, name: "Coffee Maker", price: 45.99, original: 65.99, category: "Kitchen", badge: "New", color: "bg-yellow-100", text: "text-yellow-600" },
+    { id: 4, name: "Yoga Mat", price: 29.99, original: 44.99, category: "Fitness", badge: "Popular", color: "bg-pink-100", text: "text-pink-600" },
+    { id: 5, name: "Laptop Stand", price: 39.99, original: 59.99, category: "Office", badge: "Sale", color: "bg-blue-100", text: "text-blue-600" },
+    { id: 6, name: "Water Bottle", price: 19.99, original: 29.99, category: "Lifestyle", badge: "New", color: "bg-teal-100", text: "text-teal-600" },
   ];
 
   const categories = ["All", "Electronics", "Footwear", "Kitchen", "Fitness", "Office", "Lifestyle"];
+
+  const handleAddToCart = (id: number) => {
+    setCartCount((prev) => prev + 1);
+    setAdded(id);
+    setTimeout(() => setAdded(null), 1000);
+  };
 
   return (
     <main className="min-h-screen bg-gray-50 font-sans">
@@ -32,15 +44,16 @@ export default function Home() {
             <a href="#" className="hover:text-blue-600 transition">About</a>
           </nav>
           <div className="flex items-center gap-4">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search products..."
-                className="border border-gray-200 rounded-full px-4 py-2 text-sm w-48 focus:outline-none focus:border-blue-400"
-              />
-            </div>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition">
-              Cart (0)
+            <input
+              type="text"
+              placeholder="Search products..."
+              className="border border-gray-200 rounded-full px-4 py-2 text-sm w-48 focus:outline-none focus:border-blue-400"
+            />
+            <button className="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition relative">
+              Cart
+              <span className="ml-1 bg-white text-blue-600 font-black text-xs rounded-full px-2 py-0.5">
+                {cartCount}
+              </span>
             </button>
           </div>
         </div>
@@ -57,7 +70,7 @@ export default function Home() {
               Shop Smarter.<br />Live Better.
             </h1>
             <p className="text-blue-100 text-lg mb-8 leading-relaxed">
-              Discover premium products with enterprise-level security, 
+              Discover premium products with enterprise-level security,
               PCI-compliant checkout, and lightning-fast delivery worldwide.
             </p>
             <div className="flex gap-4">
@@ -75,9 +88,9 @@ export default function Home() {
             </div>
           </div>
           <div className="hidden md:grid grid-cols-2 gap-4">
-            {[1,2,3,4].map((i) => (
-              <div key={i} className="bg-white bg-opacity-10 rounded-2xl h-36 flex items-center justify-center backdrop-blur-sm border border-white border-opacity-20">
-                <span className="text-white text-opacity-60 text-sm">Product {i}</span>
+            {products.slice(0, 4).map((p) => (
+              <div key={p.id} className={`${p.color} rounded-2xl h-36 flex items-center justify-center`}>
+                <span className={`${p.text} font-bold text-sm text-center px-2`}>{p.name}</span>
               </div>
             ))}
           </div>
@@ -87,30 +100,12 @@ export default function Home() {
       {/* Trust Badges */}
       <section className="bg-white border-b py-5">
         <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-10 text-sm text-gray-500 font-medium">
-          <span className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-            SSL Encrypted
-          </span>
-          <span className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-            PCI-DSS Compliant
-          </span>
-          <span className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-            Fraud Protection
-          </span>
-          <span className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-            30-Day Returns
-          </span>
-          <span className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-            Free Shipping Over $50
-          </span>
-          <span className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-            24/7 Support
-          </span>
+          {["SSL Encrypted", "PCI-DSS Compliant", "Fraud Protection", "30-Day Returns", "Free Shipping Over $50", "24/7 Support"].map((badge) => (
+            <span key={badge} className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+              {badge}
+            </span>
+          ))}
         </div>
       </section>
 
@@ -144,33 +139,36 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
             <div key={product.id} className="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100">
-              <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 h-48 flex items-center justify-center">
-                <div className="w-24 h-24 bg-white rounded-2xl shadow-md flex items-center justify-center">
-                  <span className="text-gray-300 text-xs text-center">Product<br/>Image</span>
+              <div className={`relative ${product.color} h-48 flex items-center justify-center`}>
+                <div className="bg-white rounded-2xl shadow-md px-6 py-4 text-center">
+                  <p className={`${product.text} font-bold text-base`}>{product.name}</p>
+                  <p className="text-gray-400 text-xs mt-1">{product.category}</p>
                 </div>
                 <span className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
                   {product.badge}
                 </span>
-                <button className="absolute top-3 right-3 bg-white w-8 h-8 rounded-full shadow flex items-center justify-center text-gray-400 hover:text-red-500 transition">
-                  +
-                </button>
               </div>
               <div className="p-5">
                 <span className="text-xs text-blue-600 font-semibold uppercase tracking-wider">{product.category}</span>
                 <h3 className="text-lg font-bold text-gray-800 mt-1 mb-3">{product.name}</h3>
                 <div className="flex items-center gap-1 mb-3">
-                  {[1,2,3,4,5].map((s) => (
-                    <span key={s} className="text-yellow-400 text-sm">*</span>
-                  ))}
+                  <span className="text-yellow-400 text-sm">* * * * *</span>
                   <span className="text-gray-400 text-xs ml-1">(128)</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-2xl font-black text-blue-600">{product.price}</span>
-                    <span className="text-sm text-gray-400 line-through ml-2">{product.original}</span>
+                    <span className="text-2xl font-black text-blue-600">${product.price}</span>
+                    <span className="text-sm text-gray-400 line-through ml-2">${product.original}</span>
                   </div>
-                  <button className="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-blue-700 transition group-hover:scale-105 transform duration-200">
-                    Add to Cart
+                  <button
+                    onClick={() => handleAddToCart(product.id)}
+                    className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 ${
+                      added === product.id
+                        ? "bg-green-500 text-white scale-95"
+                        : "bg-blue-600 text-white hover:bg-blue-700"
+                    }`}
+                  >
+                    {added === product.id ? "Added!" : "Add to Cart"}
                   </button>
                 </div>
               </div>
@@ -179,7 +177,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banner */}
+      {/* Promo Banner */}
       <section className="bg-gradient-to-r from-indigo-600 to-blue-600 py-16 px-6 text-white text-center mx-6 rounded-3xl mb-16 max-w-7xl md:mx-auto">
         <h2 className="text-3xl font-black mb-4">Special Offer -- Up to 40% Off</h2>
         <p className="text-blue-100 mb-8">Limited time deal on selected items. Shop before it ends!</p>
@@ -196,7 +194,7 @@ export default function Home() {
               <div className="bg-blue-600 text-white font-black text-sm px-2 py-1 rounded">SE</div>
               <span className="font-bold">ShopEnterprise</span>
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed">Enterprise-grade shopping with world-class security and reliability.</p>
+            <p className="text-gray-400 text-sm leading-relaxed">Enterprise-grade shopping with world-class security.</p>
           </div>
           <div>
             <h4 className="font-bold mb-4 text-sm uppercase tracking-wider">Shop</h4>
