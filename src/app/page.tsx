@@ -12,7 +12,7 @@ export default function Home() {
     <main className="min-h-screen bg-gray-50">
       <header className="bg-blue-600 text-white p-4 shadow-md">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Ìªí ShopEnterprise</h1>
+          <h1 className="text-2xl font-bold">ShopEnterprise</h1>
           <nav className="flex gap-6">
             <a href="#" className="hover:underline">Home</a>
             <a href="#" className="hover:underline">Products</a>
@@ -31,11 +31,11 @@ export default function Home() {
 
       <section className="bg-white py-6 border-b">
         <div className="max-w-6xl mx-auto flex justify-center gap-8 text-sm text-gray-600 flex-wrap">
-          <span>Ì¥í SSL Encrypted</span>
-          <span>Ì≤≥ PCI Compliant Payments</span>
-          <span>Ìª°Ô∏è Fraud Protection</span>
-          <span>Ì¥Ñ 30-Day Returns</span>
-          <span>Ì∫ö Free Shipping Over $50</span>
+          <span>SSL Encrypted</span>
+          <span>PCI Compliant Payments</span>
+          <span>Fraud Protection</span>
+          <span>30-Day Returns</span>
+          <span>Free Shipping Over $50</span>
         </div>
       </section>
 
@@ -45,7 +45,7 @@ export default function Home() {
           {products.map((product) => (
             <div key={product.id} className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
               <div className="bg-gray-100 rounded-lg h-40 flex items-center justify-center mb-4">
-                <span className="text-4xl">Ì≥¶</span>
+                <span className="text-gray-400 text-lg">Product Image</span>
               </div>
               <span className="text-xs text-blue-600 font-semibold uppercase">{product.category}</span>
               <h4 className="text-lg font-bold text-gray-800 mt-1">{product.name}</h4>
@@ -59,7 +59,7 @@ export default function Home() {
       </section>
 
       <footer className="bg-gray-800 text-white text-center py-8 mt-12">
-        <p className="text-sm">¬© 2026 ShopEnterprise | PCI-DSS Compliant | Secure Checkout</p>
+        <p className="text-sm">2026 ShopEnterprise | PCI-DSS Compliant | Secure Checkout</p>
         <p className="text-xs text-gray-400 mt-2">Environment: {process.env.NEXT_PUBLIC_APP_ENV || 'production'}</p>
       </footer>
     </main>
