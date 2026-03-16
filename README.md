@@ -11,7 +11,7 @@ E-commerce Platform with PCI-compliant payment security and customer data protec
 - **Monitoring**: Vercel Analytics + Speed Insights
 
 ## Live URL
-https://YOUR-VERCEL-URL.vercel.app
+https://enterprise-deployment-platform-g6n2hl670.vercel.app
 
 ## Environments
 | Environment | Branch | URL |
